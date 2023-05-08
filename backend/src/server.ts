@@ -1,9 +1,17 @@
 import express, { Request, Response } from 'express';
+import cors from 'cors';
 import dotevn from 'dotenv';
 
 // Intantiate express app
 const app = express();
 dotevn.config();
+
+// Configure cors
+const corsOptions = {
+  origin: process.env.CLIENT_URL,
+  optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 
 // Define server port
 const PORT = process.env.PORT;
@@ -14,4 +22,8 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // Start listening to the requests on the defined port
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.info(
+    `⚡️[server]: Server is running at http://localhost:${PORT} 🚀 `,
+  );
+});

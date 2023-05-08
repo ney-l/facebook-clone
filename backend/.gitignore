@@ -1,3 +1,10 @@
 node_modules
 dist
-.env.*
+.env
+.env.development
+.env.development.local
+.env.local
+.env.production
+.env.production.local
+.env.staging
+.env.staging.local
