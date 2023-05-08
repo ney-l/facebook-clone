@@ -2,11 +2,14 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import dotevn from 'dotenv';
 import { readdirSync } from 'fs';
+import { validateAndGetEnvVariables } from './config/envVars';
+import { connectToDatabase } from './config/db';
 
 /**
- * 🔑 Configure environment variables for the app
+ * 🔑 Configure and validate environment variables
  */
 dotevn.config();
+const envVars = validateAndGetEnvVariables();
 
 /**
  * Initiate the Express Application
@@ -21,6 +24,11 @@ const corsOptions = {
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 app.use(cors(corsOptions));
+
+/**
+ * Set up database connection
+ */
+connectToDatabase(envVars.DATABASE_URL);
 
 /**
  * 🚏 Auto configure routes based on files in src/routes folder
@@ -43,7 +51,7 @@ app.get('/', (req: Request, res: Response) => {
 /**
  * 🚀 Start listening for incoming requests
  */
-const PORT = process.env.PORT;
+const PORT = envVars.PORT;
 app.listen(PORT, () => {
   console.info(
     `⚡️[server]: Server is running at http://localhost:${PORT} 🚀 `,
