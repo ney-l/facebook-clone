@@ -1,0 +1,38 @@
+@baseUrl = http://localhost:3003
+
+
+### Valid Request to register a new user
+POST {{baseUrl}}/api/signup HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstName": "test",
+    "lastName": "user",
+    "email": "test1@email.com",
+    "username": "testuser",
+    "password": "testpassword",
+    "birthYear": 1990,
+    "birthMonth": 1,
+    "birthDay": 1,
+    "gender": "female"
+}
+
+### Invalid Request to register a new user
+POST {{baseUrl}}/api/signup HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstName": "test",
+    "lastName": "user",
+    "email": "test@email.com",
+    "username": "testuser",
+    "password": "testpassword",
+    "birthYear": 1990,
+    "birthMonth": 1,
+    "birthDay": 1,
+    "gender": "fem,ale"
+}
+
+
+### Get User
+GET {{$baseUrl}}/users HTTP/1.1
