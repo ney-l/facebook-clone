@@ -1,13 +1,9 @@
-import { RegisterRequestBody } from '@/middlewares/registerUser';
+import { PostRegisteration } from '@/middlewares/registerUser';
 import User from '@/models/User';
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 
 const saveUser = async (
-  req: Request<
-    unknown,
-    unknown,
-    RegisterRequestBody & { id: string; imageUrl: string; verified: boolean }
-  >,
+  req: PostRegisteration,
   res: Response,
   next: NextFunction,
 ) => {

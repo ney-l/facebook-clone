@@ -29,11 +29,19 @@ const RegisterRequestBodySchema = z.object({
 
 export type RegisterRequestBody = z.infer<typeof RegisterRequestBodySchema>;
 
+export type RegisterRequest = Request<unknown, unknown, RegisterRequestBody>;
+
+export type PostRegisteration = Request<
+  unknown,
+  unknown,
+  RegisterRequestBody & { id: string; imageUrl: string; verified: boolean }
+>;
+
 /**
  * Validates the request body against the RegisterRequestBodySchema
  */
 export const validateRegisterRequestBodySchema = (
-  req: Request<unknown, unknown, RegisterRequestBody>,
+  req: RegisterRequest,
   res: Response,
   next: NextFunction,
 ) => {
@@ -58,7 +66,7 @@ export const validateRegisterRequestBodySchema = (
  * and returns a error 400 if it does
  */
 export const checkEmailAvailability = async (
-  req: Request<unknown, unknown, RegisterRequestBody>,
+  req: RegisterRequest,
   res: Response,
   next: NextFunction,
 ) => {
@@ -80,7 +88,7 @@ const NUM_SALT_ROUNDS = 10;
  * Replaces the password in the request body with a hashed password
  */
 export const hashPassword = async (
-  req: Request<unknown, unknown, RegisterRequestBody>,
+  req: RegisterRequest,
   res: Response,
   next: NextFunction,
 ) => {
@@ -103,7 +111,7 @@ export const hashPassword = async (
  * Generates a unique username for the user based on their first and last name
  */
 export const generateUsername = async (
-  req: Request<unknown, unknown, RegisterRequestBody>,
+  req: RegisterRequest,
   res: Response,
   next: NextFunction,
 ) => {
@@ -138,7 +146,7 @@ const generateUniqueUsername = async (
  * Sends a verification email to the user to verify their email address
  */
 export const sendVerificationEmail = async (
-  req: Request<unknown, unknown, RegisterRequestBody & { id: string }>,
+  req: PostRegisteration,
   res: Response,
   next: NextFunction,
 ) => {
@@ -162,11 +170,7 @@ export const sendVerificationEmail = async (
  * Generate login token
  */
 export const generateLoginToken = async (
-  req: Request<
-    unknown,
-    unknown,
-    RegisterRequestBody & { id: string; imageUrl: string; verified: boolean }
-  >,
+  req: PostRegisteration,
   res: Response,
 ) => {
   const { id, username, imageUrl, verified } = req.body;
