@@ -1,6 +1,6 @@
 # Facebook Clone
 
-Welcome to my Facebook Clone project, a full-stack web application that replicates the core functionality of the popular social networking service. This project was built using the MERN stack, Cloudinary, Sendgrid and more, aiming to highlight the breadth and depth of my full-stack development skills. Although it's still under construction, I think you'll find the progress intriguing.
+Welcome to my Facebook Clone project, a full-stack web application that replicates the core functionality of the popular social networking service. The project was built using the MERN stack, Typescript, Cloudinary, Sendgrid, and other technologies. This project is under construction. 🚧
 
 ## Table of Contents
 
@@ -18,6 +18,8 @@ This project is built with the following technologies:
 - **MERN Stack**: MongoDB, Express.js, React.js, Node.js
 - **Cloudinary**: For image uploading and management.
 - **Sendgrid**: For reliable email delivery service.
+- **Typescript**: For static type checking and improved developer experience.
+- **VSCode REST Client**: To document the API endpoints.
 
 These technologies were chosen to create a scalable, high performance, and robust application.
 
