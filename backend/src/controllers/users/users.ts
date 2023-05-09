@@ -11,8 +11,8 @@ const register = async (
       firstName,
       lastName,
       email,
-      username,
-      password,
+      username, // generated unique username added by the middleware
+      password, // hashed password added by the middleware
       birthYear,
       birthMonth,
       birthDay,

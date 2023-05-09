@@ -8,8 +8,7 @@ Content-Type: application/json
 {
     "firstName": "test",
     "lastName": "user",
-    "email": "test1@email.com",
-    "username": "testuser",
+    "email": "test7@email.com",
     "password": "testpassword",
     "birthYear": 1990,
     "birthMonth": 1,

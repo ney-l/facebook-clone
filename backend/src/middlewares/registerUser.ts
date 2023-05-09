@@ -7,7 +7,7 @@ const RegisterRequestBodySchema = z.object({
   firstName: z.string().min(2).max(50),
   lastName: z.string().min(2).max(50),
   email: z.string().email(),
-  username: z.string().min(2).max(50),
+  username: z.string().optional(),
   password: z.string().min(8).max(50),
   /**
    * birthYear property has a minimum value of 1900 and a maximum value
@@ -94,4 +94,36 @@ export const hashPassword = async (
   req.body.password = hashedPassword;
 
   next();
+};
+
+export const generateUsername = async (
+  req: Request<unknown, unknown, RegisterRequestBody>,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { firstName, lastName } = req.body;
+
+  const username = await generateUniqueUsername(firstName, lastName);
+
+  req.body.username = username;
+
+  next();
+};
+
+const generateUniqueUsername = async (
+  firstName: string,
+  lastName: string,
+): Promise<string> => {
+  let username = `${firstName}.${lastName}`.toLocaleLowerCase();
+  let count = 0;
+
+  let user = await UserModel.findOne({ username });
+
+  while (user) {
+    count++;
+    username = `${firstName}.${lastName}.${count}`.toLocaleLowerCase();
+    user = await UserModel.findOne({ username });
+  }
+
+  return username;
 };

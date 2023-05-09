@@ -3,6 +3,7 @@ import express from 'express';
 import userController from '@/controllers/users';
 import {
   checkEmailAvailability,
+  generateUsername,
   hashPassword,
   validateRegisterRequestBodySchema,
 } from '@/middlewares/registerUser';
@@ -14,6 +15,7 @@ router.post(
   validateRegisterRequestBodySchema,
   checkEmailAvailability,
   hashPassword,
+  generateUsername,
   userController.register,
 );
 
