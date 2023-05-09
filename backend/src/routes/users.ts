@@ -3,6 +3,7 @@ import express from 'express';
 import userController from '@/controllers/users';
 import {
   checkEmailAvailability,
+  generateLoginToken,
   generateUsername,
   hashPassword,
   sendVerificationEmail,
@@ -19,6 +20,7 @@ router.post(
   generateUsername,
   userController.register,
   sendVerificationEmail,
+  generateLoginToken,
 );
 
 export default router;

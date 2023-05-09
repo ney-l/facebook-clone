@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema(
       required: [true, 'Username is required'],
       text: true,
     },
-    picture: {
+    imageUrl: {
       type: String,
       default:
         'https://c8.alamy.com/zooms/9/80d94c5b96c54446b2dc609a62b9f61b/2c5xkmf.jpg',
@@ -70,19 +70,19 @@ const userSchema = new mongoose.Schema(
     },
     friends: {
       type: Array,
-      defautlt: [],
+      default: [],
     },
     following: {
       type: Array,
-      defautlt: [],
+      default: [],
     },
     followers: {
       type: Array,
-      defautlt: [],
+      default: [],
     },
     requests: {
       type: Array,
-      defautlt: [],
+      default: [],
     },
     search: [
       {

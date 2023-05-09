@@ -2,8 +2,12 @@ import { RegisterRequestBody } from '@/middlewares/registerUser';
 import User from '@/models/User';
 import { NextFunction, Request, Response } from 'express';
 
-const register = async (
-  req: Request<unknown, unknown, RegisterRequestBody & { id: string }>,
+const saveUser = async (
+  req: Request<
+    unknown,
+    unknown,
+    RegisterRequestBody & { id: string; imageUrl: string; verified: boolean }
+  >,
   res: Response,
   next: NextFunction,
 ) => {
@@ -33,6 +37,7 @@ const register = async (
     }).save();
 
     req.body.id = user.id;
+    req.body.imageUrl = user.imageUrl;
 
     next();
   } catch (error) {
@@ -41,6 +46,6 @@ const register = async (
   }
 };
 
-const userController = { register };
+const userController = { register: saveUser };
 
 export default userController;

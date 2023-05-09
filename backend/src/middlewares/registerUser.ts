@@ -140,6 +140,7 @@ const generateUniqueUsername = async (
 export const sendVerificationEmail = async (
   req: Request<unknown, unknown, RegisterRequestBody & { id: string }>,
   res: Response,
+  next: NextFunction,
 ) => {
   const { id: userId, email, firstName } = req.body;
   const token = generateToken({ userId });
@@ -154,9 +155,29 @@ export const sendVerificationEmail = async (
   };
 
   await MailingService.sendVerificationEmail(verificationData, email);
+  next();
+};
+
+/**
+ * Generate login token
+ */
+export const generateLoginToken = async (
+  req: Request<
+    unknown,
+    unknown,
+    RegisterRequestBody & { id: string; imageUrl: string; verified: boolean }
+  >,
+  res: Response,
+) => {
+  const { id, username, imageUrl, verified } = req.body;
+  const token = generateToken({ userId: id }, '7d');
 
   return res.json({
     message: 'User created successfully 🎉! Please verify your account.',
-    userId,
+    id,
+    username,
+    imageUrl,
+    token,
+    verified,
   });
 };
