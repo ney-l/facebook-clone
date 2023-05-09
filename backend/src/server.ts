@@ -43,7 +43,8 @@ readdirSync('./src/routes')
   .map((file) => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const route = require(`./routes/${file}`).default;
-    app.use('/api', route);
+    const [routeName] = file.split('.');
+    app.use(`/api/${routeName}`, route);
   });
 
 /**
