@@ -5,6 +5,7 @@ import {
   checkEmailAvailability,
   generateUsername,
   hashPassword,
+  sendVerificationEmail,
   validateRegisterRequestBodySchema,
 } from '@/middlewares/registerUser';
 
@@ -17,6 +18,7 @@ router.post(
   hashPassword,
   generateUsername,
   userController.register,
+  sendVerificationEmail,
 );
 
 export default router;

@@ -1,0 +1,79 @@
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Welcome to Facebook Clone!</title>
+  </head>
+  <body
+    style='
+      background-color: #f0f2f5;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 40px;
+    '
+  >
+    <table
+      cellpadding='0'
+      cellspacing='0'
+      width='100%'
+      style='max-width: 600px; margin: 0 auto'
+    >
+      <tr>
+        <td style='padding: 20px; background-color: #fff'>
+          <img
+            src='https://res.cloudinary.com/dn5esbcuo/image/upload/v1683636365/assets/f-logos/f_Logo_Online_04_2019/Color/PNG/f_logo_RGB-Blue_250_mb7xl7.png'
+            alt='Facebook logo'
+            width='100'
+            style='display: block; margin: 0 auto'
+          />
+          <h1
+            style='
+              font-size: 24px;
+              font-weight: bold;
+              margin: 20px 0;
+              text-align: center;
+              padding-top: 20px;
+              color: rgba(0, 0, 0, 0.8);
+            '
+          >
+            Welcome to Facebook Clone,
+            {{firstName}}!
+          </h1>
+          <p style='font-size: 16px; margin-bottom: 30px'>
+            Thank you for signing up for Facebook Clone. We're excited to have
+            you on board!
+          </p>
+          <a
+            href='{{verificationLink}}'
+            style='
+              background-color: #1877f2;
+              color: #fff;
+              display: block;
+              padding: 15px 25px;
+              text-align: center;
+              text-decoration: none;
+              font-size: 16px;
+              border-radius: 4px;
+            '
+          >Confirm your account</a>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style='
+            padding: 20px;
+            background-color: #fff;
+            text-align: center;
+            font-size: 14px;
+            color: #808080;
+          '
+        >
+          This application is built for demo purposes and is not affiliated with
+          Facebook.
+
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

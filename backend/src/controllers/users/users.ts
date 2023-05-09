@@ -1,10 +1,11 @@
 import { RegisterRequestBody } from '@/middlewares/registerUser';
 import User from '@/models/User';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 const register = async (
-  req: Request<unknown, unknown, RegisterRequestBody>,
+  req: Request<unknown, unknown, RegisterRequestBody & { id: string }>,
   res: Response,
+  next: NextFunction,
 ) => {
   try {
     const {
@@ -31,7 +32,9 @@ const register = async (
       gender,
     }).save();
 
-    return res.status(201).json({ message: 'User created successfully', user });
+    req.body.id = user.id;
+
+    next();
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Internal server error' });

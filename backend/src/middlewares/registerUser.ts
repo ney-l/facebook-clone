@@ -2,6 +2,9 @@ import UserModel from '@/models/User';
 import { NextFunction, Request, Response } from 'express';
 import * as z from 'zod';
 import bcrypt from 'bcrypt';
+import { generateToken } from '@/utils/authUtils';
+import { MailingService } from '@/services/emailService';
+import { validateAndGetEnvVariables } from '@/config/envVars';
 
 const RegisterRequestBodySchema = z.object({
   firstName: z.string().min(2).max(50),
@@ -27,7 +30,7 @@ const RegisterRequestBodySchema = z.object({
 export type RegisterRequestBody = z.infer<typeof RegisterRequestBodySchema>;
 
 /**
- * This middleware validates the request body against the RegisterRequestBodySchema
+ * Validates the request body against the RegisterRequestBodySchema
  */
 export const validateRegisterRequestBodySchema = (
   req: Request<unknown, unknown, RegisterRequestBody>,
@@ -51,7 +54,7 @@ export const validateRegisterRequestBodySchema = (
 };
 
 /**
- * This middleware checks if a user with the same email address already exists
+ * Checks if a user with the same email address already exists
  * and returns a error 400 if it does
  */
 export const checkEmailAvailability = async (
@@ -74,7 +77,7 @@ export const checkEmailAvailability = async (
 const NUM_SALT_ROUNDS = 10;
 
 /**
- * This middleware replaces the password in the request body with a hashed password
+ * Replaces the password in the request body with a hashed password
  */
 export const hashPassword = async (
   req: Request<unknown, unknown, RegisterRequestBody>,
@@ -96,6 +99,9 @@ export const hashPassword = async (
   next();
 };
 
+/**
+ * Generates a unique username for the user based on their first and last name
+ */
 export const generateUsername = async (
   req: Request<unknown, unknown, RegisterRequestBody>,
   res: Response,
@@ -126,4 +132,31 @@ const generateUniqueUsername = async (
   }
 
   return username;
+};
+
+/**
+ * Sends a verification email to the user to verify their email address
+ */
+export const sendVerificationEmail = async (
+  req: Request<unknown, unknown, RegisterRequestBody & { id: string }>,
+  res: Response,
+) => {
+  const { id: userId, email, firstName } = req.body;
+  const token = generateToken({ userId });
+
+  const envVars = validateAndGetEnvVariables();
+
+  const verificationLink = `${envVars.BASE_URL}/activate/${token}`;
+
+  const verificationData = {
+    verificationLink,
+    firstName,
+  };
+
+  await MailingService.sendVerificationEmail(verificationData, email);
+
+  return res.json({
+    message: 'User created successfully 🎉! Please verify your account.',
+    userId,
+  });
 };
