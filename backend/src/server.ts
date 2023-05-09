@@ -55,6 +55,21 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 /**
+ * 🛑 Handle 404 errors
+ */
+app.use((req: Request, res: Response) => {
+  return res.status(404).json({ message: 'Not Found' });
+});
+
+/**
+ * 🛑 Handle all other errors
+ */
+app.use((error: Error, req: Request, res: Response) => {
+  const message = error.message || 'Internal Server Error';
+  return res.status(500).json({ message });
+});
+
+/**
  * 🚀 Start listening for incoming requests
  */
 const PORT = envVars.PORT;
