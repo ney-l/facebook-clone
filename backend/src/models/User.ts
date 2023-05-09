@@ -132,7 +132,26 @@ const userSchema = new mongoose.Schema(
       },
     ],
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+
+    toJSON: {
+      virtuals: true, // include virtual properties when converting to JSON
+      transform(doc, returnedDocFromDB) {
+        returnedDocFromDB.id = returnedDocFromDB._id.toString(); // add a new property `id` with the string value of `_id`
+        delete returnedDocFromDB._id; // delete the `_id` property
+      },
+    },
+    toObject: {
+      virtuals: true, // include virtual properties when converting to a plain JavaScript object
+      transform(doc, returnedDocFromDB) {
+        returnedDocFromDB.id = returnedDocFromDB._id.toString(); // add a new property `id` with the string value of `_id`
+        delete returnedDocFromDB._id; // delete the `_id` property
+      },
+    },
+  },
 );
 
-export default mongoose.model('User', userSchema);
+const userModel = mongoose.model('User', userSchema);
+
+export default userModel;
