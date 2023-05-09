@@ -17,6 +17,11 @@ const envVars = validateAndGetEnvVariables();
 const app = express();
 
 /**
+ * 📝 Parse incoming requests with JSON payloads
+ */
+app.use(express.json());
+
+/**
  * 🚪 Configure Cross-Origin Resource Sharing (CORS) for the app
  */
 const corsOptions = {
