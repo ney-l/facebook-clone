@@ -2,9 +2,9 @@ import jwt from 'jsonwebtoken';
 
 import { validateAndGetEnvVariables } from '@/config/envVars';
 
-interface TokenPayload {
+export type TokenPayload = {
   userId: string;
-}
+};
 
 type ExpiresIn = '1h' | '7d';
 

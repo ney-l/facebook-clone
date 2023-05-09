@@ -1,6 +1,5 @@
 @baseUrl = http://localhost:3003
 
-
 ### Valid Request to register a new user
 POST {{baseUrl}}/api/signup HTTP/1.1
 Content-Type: application/json
@@ -8,7 +7,7 @@ Content-Type: application/json
 {
     "firstName": "test",
     "lastName": "user",
-    "email": "test7@email.com",
+    "email": "test@gmail.com",
     "password": "testpassword",
     "birthYear": 1990,
     "birthMonth": 1,
@@ -33,5 +32,13 @@ Content-Type: application/json
 }
 
 
-### Get User
-GET {{$baseUrl}}/users HTTP/1.1
+### Activate account
+POST {{baseUrl}}/api/activate HTTP/1.1
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsIR5cIkpXVCJ9.eyJkYXRhIjp7InVzZXJJZCI6IjY0NWE2ZTY1YjIwODFmYzE0MmQwNGY0NCJ9LCJpYXQiOjE2ODM2NDgxMDEsImV4cCI6MTY4MzY1MTcwMX0.ajMeEugoJ_Dfi4wX8nfF7i-jOdOm4vExqxqNtb8uu6M"
+}
+
+
+

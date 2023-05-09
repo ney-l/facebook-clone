@@ -1,3 +1,11 @@
 {
-  "conventionalCommits.scopes": ["user"]
+  "conventionalCommits.scopes": ["user"],
+  "rest-client.environmentVariables": {
+    "$shared": {
+      "timeout": "60000"
+    },
+    "development": {},
+    "staging": {},
+    "production": {}
+  }
 }

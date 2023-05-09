@@ -1,6 +1,6 @@
 import express from 'express';
 
-import userController from '@/controllers/users';
+import UserController from '@/controllers/users';
 import {
   checkEmailAvailability,
   generateLoginToken,
@@ -18,9 +18,11 @@ router.post(
   checkEmailAvailability,
   hashPassword,
   generateUsername,
-  userController.register,
+  UserController.register,
   sendVerificationEmail,
   generateLoginToken,
 );
+
+router.post('/activate', UserController.activateAccount);
 
 export default router;
