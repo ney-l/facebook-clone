@@ -138,8 +138,17 @@ const userSchema = new mongoose.Schema(
     toJSON: {
       virtuals: true, // include virtual properties when converting to JSON
       transform(doc, returnedDocFromDB) {
+        /**
+         * Return id property with the value of _id
+         */
         returnedDocFromDB.id = returnedDocFromDB._id.toString(); // add a new property `id` with the string value of `_id`
+
+        /**
+         * Prevent the id, password and __v properties from being returned
+         */
         delete returnedDocFromDB._id; // delete the `_id` property
+        delete returnedDocFromDB.password; // delete the `password` property
+        delete returnedDocFromDB.__v; // delete the `__v` property
       },
     },
     toObject: {
@@ -152,6 +161,6 @@ const userSchema = new mongoose.Schema(
   },
 );
 
-const userModel = mongoose.model('User', userSchema);
+const UserModel = mongoose.model('User', userSchema);
 
-export default userModel;
+export default UserModel;
